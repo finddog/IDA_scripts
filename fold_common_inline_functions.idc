@@ -79,6 +79,82 @@ F7 D1      not     ecx
 	cont = 1;
 	while (cont==1) {
 /*
+ 8A 10                                mov     dl, [eax]
+ 3A 11                                cmp     dl, [ecx]
+ 75 1A                                jnz     short loc_10027FA0
+ 84 D2                                test    dl, dl
+ 74 12                                jz      short loc_10027F9C
+ 8A 50 01                             mov     dl, [eax+1]
+ 3A 51 01                             cmp     dl, [ecx+1]
+ 75 0E                                jnz     short loc_10027FA0
+ 83 C0 02                             add     eax, 2
+ 83 C1 02                             add     ecx, 2
+ 84 D2                                test    dl, dl
+ 75 E4                                jnz     short loc_10027F80
+
+                      loc_10027F9C:                           ; CODE XREF: f1+448j
+ 33 C0                                xor     eax, eax
+ EB 05                                jmp     short loc_10027FA5
+                      ; ---------------------------------------------------------------------------
+
+                      loc_10027FA0:                           ; CODE XREF: f1+444j
+                                                              ; f1+450j
+ 1B C0                                sbb     eax, eax
+ 83 D8 FF                             sbb     eax, 0FFFFFFFFh
+*/
+		ea = FindBinary (ea,SEARCH_DOWN,"8A 10 3A 11 75 1A 84 D2 74 12 8A 50 01 3A 51 01 75 0E 83 C0 02 83 C1 02 84 D2 75 E4 33 C0 EB 05 1B C0 83 D8 FF");
+
+		if( ea == -1) 
+		{
+			cont=0;
+			break;
+		}
+		HideArea(ea, ea + 37, "eax=strcmp (eax, ecx)", "", "", -1);
+		ea=ea+37;
+	}
+
+	ea = FirstSeg();
+	cont = 1;
+	while (cont==1) {
+/*
+ 8A 19                                mov     bl, [ecx]
+ 3A 1A                                cmp     bl, [edx]
+ 75 1A                                jnz     short loc_1002B6C4
+ 84 DB                                test    bl, bl
+ 74 12                                jz      short loc_1002B6C0
+ 8A 59 01                             mov     bl, [ecx+1]
+ 3A 5A 01                             cmp     bl, [edx+1]
+ 75 0E                                jnz     short loc_1002B6C4
+ 83 C1 02                             add     ecx, 2
+ 83 C2 02                             add     edx, 2
+ 84 DB                                test    bl, bl
+ 75 E4                                jnz     short loc_1002B6A4
+
+                      loc_1002B6C0:                           ; CODE XREF: set_val1+2Cj
+ 33 C9                                xor     ecx, ecx
+ EB 05                                jmp     short loc_1002B6C9
+                      ; ---------------------------------------------------------------------------
+
+                      loc_1002B6C4:                           ; CODE XREF: set_val1+28j
+                                                              ; set_val1+34j
+ 1B C9                                sbb     ecx, ecx
+ 83 D9 FF                             sbb     ecx, 0FFFFFFFFh
+*/
+		ea = FindBinary (ea,SEARCH_DOWN,"8A 19 3A 1A 75 1A 84 DB 74 12 8A 59 01 3A 5A 01 75 0E 83 C1 02 83 C2 02 84 DB 75 E4 33 C9 EB 05 1B C9 83 D9 FF");
+
+		if( ea == -1) 
+		{
+			cont=0;
+			break;
+		}
+		HideArea(ea, ea + 37, "ecx=strcmp (ecx, edx)", "", "", -1);
+		ea=ea+37;
+	}
+
+	ea = FirstSeg();
+	cont = 1;
+	while (cont==1) {
+/*
  8A 10                             mov     dl, [eax]
  8A CA                             mov     cl, dl
  3A 16                             cmp     dl, [esi]

@@ -1,0 +1,7 @@
+Some of my IDA scripts.
+
+* fold_common_inline_functions.idc
+
+Fold inline functions like strcmp(), memcmp(), etc.
+
+-- dennis@yurichev.com
